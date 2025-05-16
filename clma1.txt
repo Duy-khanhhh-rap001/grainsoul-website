@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrainSoul - Ống Hút Gạo Tự Nhiên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: #f5f6f5;
+            color: #1a3c34;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        nav {
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 195, 0.95));
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            padding: 15px 60px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.98), rgba(240, 244, 195, 0.98));
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a3c34;
+            letter-spacing: 3px;
+            transition: color 0.3s ease;
+        }
+        nav .logo:hover {
+            color: #d4a017;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #1a3c34;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #d4a017, #1a3c34);
+            bottom: -10px;
+            left: 0;
+            transition: width 0.4s ease;
+        }
+        nav ul li a:hover {
+            color: #d4a017;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        .hero {
+            text-align: center;
+            padding: 150px 20px;
+            width: 100%;
+            max-width: 1400px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .parallax {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://ecoexim.com.vn/image/cache/catalog/ong-hut-gao2-700x700.jpg') no-repeat center center/cover;
+            z-index: -1;
+            transform: translateZ(-1px) scale(1.2);
+            filter: brightness(0.5) sepia(0.2);
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1.2s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .hero p {
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.9;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .illustration {
+            margin-bottom: 60px;
+            animation: bounceIn 1.8s ease-in-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .illustration img {
+            width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 3px solid #d4a017;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .illustration img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .buttons button {
+            background: linear-gradient(45deg, #1a3c34, #d4a017);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .buttons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s ease;
+        }
+        .buttons button:hover::before {
+            left: 100%;
+        }
+        .buttons button:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #d4a017, #1a3c34);
+        }
+        .buttons button:active {
+            transform: translateY(0);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        section {
+            padding: 80px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #1a3c34;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        #about p {
+            font-size: 20px;
+            color: #1a3c34;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        #products .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .product-card {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card h3 {
+            font-size: 24px;
+            color: #1a3c34;
+            margin: 20px 0 10px;
+        }
+        .product-card p {
+            font-size: 16px;
+            color: #555;
+            padding: 0 20px 20px;
+        }
+        #news .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .news-card {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+        }
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .news-card h3 {
+            font-size: 24px;
+            color: #1a3c34;
+            margin: 20px 0 10px;
+            padding: 0 20px;
+        }
+        .news-card p {
+            font-size: 16px;
+            color: #555;
+            padding: 0 20px 20px;
+        }
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 40px auto 0;
+        }
+        #contact input, #contact textarea {
+            padding: 15px;
+            border: 2px solid #d4a017;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+        }
+        #contact button {
+            background: linear-gradient(45deg, #1a3c34, #d4a017);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #contact button:hover {
+            background: linear-gradient(45deg, #d4a017, #1a3c34);
+            transform: translateY(-3px);
+        }
+        #ambassador {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            padding: 80px 20px;
+        }
+        #ambassador .ambassador-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        #ambassador .ambassador-text {
+            flex: 1;
+            text-align: left;
+        }
+        #ambassador .ambassador-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #1a3c34;
+            margin-bottom: 20px;
+        }
+        #ambassador .ambassador-text p {
+            font-size: 18px;
+            color: #1a3c34;
+            line-height: 1.8;
+        }
+        #ambassador .ambassador-image img {
+            width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid #d4a017;
+            transition: transform 0.3s ease;
+        }
+        #ambassador .ambassador-image img:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            background: #1a3c34;
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        footer p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        footer .social-links a {
+            color: #d4a017;
+            font-size: 24px;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer .social-links a:hover {
+            color: #ffffff;
+        }
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            nav .logo {
+                font-size: 28px;
+            }
+            nav ul {
+                gap: 20px;
+            }
+            nav ul li a {
+                font-size: 16px;
+            }
+            .hero {
+                padding: 100px 20px;
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+            .hero p {
+                font-size: 20px;
+            }
+            .illustration img {
+                width: 300px;
+            }
+            .buttons button {
+                padding: 14px 35px;
+                font-size: 16px;
+            }
+            section h2 {
+                font-size: 36px;
+            }
+            #ambassador .ambassador-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            #ambassador .ambassador-text {
+                text-align: center;
+            }
+            #ambassador .ambassador-image img {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">GrainSoul</div>
+        <ul>
+            <li><a href="#about">Về chúng tôi</a></li>
+            <li><a href="#products">Sản phẩm</a></li>
+            <li><a href="#news">Tin tức</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+            <li><a href="#ambassador">Đại sứ thương hiệu</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="home">
+        <div class="parallax"></div>
+        <div class="illustration">
+            <img src="https://fnbvietnam.vn/wp-content/uploads/2025/01/ong-hut-gao-viet-straw-3.jpg" alt="Ống hút gạo tự nhiên">
+        </div>
+        <h1>ỐNG HÚT GẠO 100% THIÊN NHIÊN</h1>
+        <p>Doanh nghiệp tiên phong sản xuất & phân phối ống hút thân thiện môi trường đạt tiêu chuẩn quốc tế</p>
+        <div class="buttons">
+            <button>Môi trường</button>
+            <button>Phân hủy sinh học</button>
+            <button>Chứng nhận FDA</button>
+            <button>100% Tự nhiên</button>
+        </div>
+    </div>
+
+    <section id="about">
+        <h2>Về chúng tôi</h2>
+        <p>GrainSoul tự hào là thương hiệu tiên phong trong lĩnh vực sản xuất ống hút gạo thân thiện với môi trường tại Việt Nam. Với sứ mệnh bảo vệ hành tinh xanh, chúng tôi cam kết mang đến những sản phẩm bền vững, an toàn và chất lượng cao, được chứng nhận bởi các tổ chức quốc tế.</p>
+    </section>
+
+    <section id="products">
+        <h2>Sản phẩm</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://fnbvietnam.vn/wp-content/uploads/2025/01/ong-hut-gao-viet-straw-3.jpg" alt="Ống hút gạo tiêu chuẩn">
+                <h3>Ống hút gạo tiêu chuẩn</h3>
+                <p>Ống hút làm từ gạo tự nhiên, phân hủy sinh học, phù hợp cho mọi loại đồ uống.</p>
+            </div>
+            <div class="product-card">
+                <img src="https://ecoexim.com.vn/image/cache/catalog/ong-hut-gao2-700x700.jpg" alt="Ống hút gạo màu">
+                <h3>Ống hút gạo màu</h3>
+                <p>Ống hút gạo với màu sắc tự nhiên, an toàn thực phẩm, thêm phần sinh động cho trải nghiệm của bạn.</p>
+            </div>
+            <div class="product-card">
+                <img src="https://fnbvietnam.vn/wp-content/uploads/2025/01/ong-hut-gao-viet-straw-3.jpg" alt="Ống hút gạo cao cấp">
+                <h3>Ống hút gạo cao cấp</h3>
+                <p>Thiết kế đặc biệt dành cho các nhà hàng và quán cà phê cao cấp, bền và thẩm mỹ.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <h2>Tin tức</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="https://ecoexim.com.vn/image/cache/catalog/ong-hut-gao2-700x700.jpg" alt="Tin tức 1">
+                <h3>Ra mắt dòng sản phẩm mới</h3>
+                <p>GrainSoul giới thiệu ống hút gạo màu tự nhiên, thân thiện môi trường và an toàn tuyệt đối.</p>
+            </div>
+            <div class="news-card">
+                <img src="https://fnbvietnam.vn/wp-content/uploads/2025/01/ong-hut-gao-viet-straw-3.jpg" alt="Tin tức 2">
+                <h3>Chứng nhận quốc tế</h3>
+                <p>Sản phẩm của GrainSoul đạt chứng nhận FDA, đảm bảo tiêu chuẩn an toàn thực phẩm toàn cầu.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Liên hệ</h2>
+        <form>
+            <input type="text" placeholder="Họ và tên" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Tin nhắn" rows="5" required></textarea>
+            <button type="submit">Gửi</button>
+        </form>
+    </section>
+
+    <section id="ambassador">
+        <h2>Đại sứ thương hiệu</h2>
+        <div class="ambassador-content">
+            <div class="ambassador-text">
+                <h3>Jack – J97</h3>
+                <p>GrainSoul tự hào giới thiệu Jack – J97, một ca sĩ, rapper và diễn viên nổi tiếng của Việt Nam, là đại sứ thương hiệu của chúng tôi. Với tầm ảnh hưởng tích cực và tinh thần sáng tạo, Jack – J97 truyền tải thông điệp về lối sống bền vững và bảo vệ môi trường, đồng hành cùng GrainSoul trong sứ mệnh mang đến những sản phẩm thân thiện với hành tinh xanh.</p>
+            </div>
+            <div class="ambassador-image">
+                <img src="data:image/webp;base64,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" alt="Jack – J97">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 GrainSoul. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Handle smooth scrolling for navigation links
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for fixed nav height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Handle nav bar styling on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
